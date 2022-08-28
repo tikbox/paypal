@@ -495,12 +495,12 @@ type (
 
 	// ErrorResponseDetail struct
 	ErrorResponseDetail struct {
-		Field   	string `json:"field"`
-		Issue   	string `json:"issue"`
-		Name    	string `json:"name"`
-		Message 	string `json:"message"`
-		Description 	string `json:"description"`
-		Links   	[]Link `json:"link"`
+		Field       string `json:"field"`
+		Issue       string `json:"issue"`
+		Name        string `json:"name"`
+		Message     string `json:"message"`
+		Description string `json:"description"`
+		Links       []Link `json:"link"`
 	}
 
 	// ErrorResponse https://developer.paypal.com/docs/api/errors/
@@ -1008,6 +1008,12 @@ type (
 		Token        string         `json:"access_token"`
 		Type         string         `json:"token_type"`
 		ExpiresIn    expirationTime `json:"expires_in"`
+	}
+
+	// ClientTokenResponse is for API response for the /v1/identity/generate-token endpoint
+	ClientTokenResponse struct {
+		ClientToken string         `json:"client_token"`
+		ExpiresIn   expirationTime `json:"expires_in"`
 	}
 
 	// Transaction struct

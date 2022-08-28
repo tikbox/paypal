@@ -2,22 +2,35 @@ package paypal_test
 
 import (
 	"context"
-
-	"github.com/plutov/paypal/v4"
+	"fmt"
+	"github.com/tikbox/paypal/v4"
+	"testing"
 )
+
+func TestExample(t *testing.T) {
+	Example()
+}
 
 func Example() {
 	// Initialize client
-	c, err := paypal.NewClient("clientID", "secretID", paypal.APIBaseSandBox)
+	c, err := paypal.NewClient("AecAXJnfUqNBOT68RczPoY3AAHDPfTfCjtC6Q5xtt72FfX34gwMy7Qm4X_HyctUA1xVPgKnBFrdQvNsL", "EHT7Kh0nfloIA5MEdYEUslIEuE0Vu_umUi8NFxfYeX909En02N26lwOAtvyrlDbgNSZP12Ip9c0lpx6X", paypal.APIBaseSandBox)
 	if err != nil {
 		panic(err)
 	}
 
 	// Retrieve access token
-	_, err = c.GetAccessToken(context.Background())
+	resp, err := c.GetAccessToken(context.Background())
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("resp.Token=", resp.Token)
+
+	token, err := c.GetClientToken(context.Background(), resp.Token)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("token=", token)
 }
 
 func ExampleClient_CreatePayout_Venmo() {

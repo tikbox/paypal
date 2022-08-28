@@ -52,6 +52,22 @@ func (c *Client) GetAccessToken(ctx context.Context) (*TokenResponse, error) {
 	return response, err
 }
 
+// GetClientToken returns struct of TokenResponse
+// Endpoint: POST /v1/identity/generate-token
+func (c *Client) GetClientToken(ctx context.Context, accessToken string) (*ClientTokenResponse, error) {
+	req, err := http.NewRequestWithContext(ctx, "POST", fmt.Sprintf("%s%s", c.APIBase, "/v1/identity/generate-token"), nil)
+	if err != nil {
+		return &ClientTokenResponse{}, err
+	}
+
+	req.Header.Set("Authorization", "Bearer "+accessToken)
+
+	response := &ClientTokenResponse{}
+	err = c.Send(req, response)
+
+	return response, err
+}
+
 // SetHTTPClient sets *http.Client to current client
 func (c *Client) SetHTTPClient(client *http.Client) {
 	c.Client = client
